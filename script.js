@@ -94,3 +94,47 @@ for (let i = 0; i < myLibrary.length; i++) {
   // Create elements within cards
   createCardItems(i);
 }
+
+// Add new book dialog
+const btnOpenDialog = document.querySelector('#showDialog');
+const addBookDialog = document.querySelector('#addBookDialog');
+
+const addBookForm = document.querySelector('#addBookForm');
+
+const inputTitle = document.querySelector('#title');
+const inputAuthor = document.querySelector('#author');
+const inputPages = document.querySelector('#pages');
+
+// need to figure out how to get boolean output
+const inputRead = document.querySelector('input[name="read"]:checked');
+
+const btnConfirm = addBookDialog.querySelector('#btnConfirm');
+
+// Open dialog
+btnOpenDialog.addEventListener('click', () => {
+  // Clear previous input
+  addBookDialog.showModal();
+  addBookForm.reset();
+});
+
+// Confirm input
+btnConfirm.addEventListener('click', () => {
+  console.log(inputTitle.value);
+  console.log(inputAuthor.value);
+  console.log(inputPages.value);
+  console.log(inputRead.value);
+
+  let readStatus = true;
+
+  if (inputRead.value === 'yes') {
+    readStatus = true;
+  } else {
+    readStatus = false;
+  }
+
+  console.log(readStatus);
+
+  // doesn't work rn
+  // one work around I found is to call the createCard() and createCardItems(arrayIndex) functions after this
+  addBookToLibrary(String(inputTitle.value), String(inputAuthor.value), Number(inputPages.value), readStatus);
+})
