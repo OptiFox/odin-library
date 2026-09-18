@@ -4,14 +4,26 @@
   padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+  gap: 20px
+}
+
+.card {
   height: 200px;
   width: 400px;
   background-color: rgb(235, 235, 235);
   box-shadow: 2px 2px 6px black;
   border-radius: 12px;
   padding: 20px;
-  margin: 10px;
 }
 
 .id {
@@ -50,4 +62,10 @@
   width: 20px;
   height: 20px;
   background-color: red;
+  box-shadow: 1px 1px 0 rgb(159, 0, 0);
+}
+
+.indicator.read {
+  background-color: rgb(0, 255, 0);
+  box-shadow: 1px 1px 0 rgb(0, 128, 0);
 }
