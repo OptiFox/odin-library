@@ -114,6 +114,14 @@ button {
   font-weight: 600;
   background-color: #e7e7e7;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+button > img {
+  height: 16px;
 }
 
 fieldset {

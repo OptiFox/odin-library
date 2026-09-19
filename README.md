@@ -6,6 +6,8 @@ This repository contains my solution for the library project by [The Odin Projec
 
 ## Features
 
+<!-- - All books are stored in an array. -->
+
 ## Technologies Used
 
 - **HTML5**
@@ -19,3 +21,4 @@ This repository contains my solution for the library project by [The Odin Projec
 - **How to get last element of array:** [builtin.com](https://builtin.com/articles/javascript-get-last-element-of-array)
 - **Getting value of checked radio button:** [StackOverflow](https://stackoverflow.com/questions/45121155/getting-the-value-of-a-checked-radio-button-using-javascript)
 - **Element positioning with dialog/modal:** [StackOverflow](https://stackoverflow.com/questions/78710924/element-positioning-with-dialog-modal-css)
+- **Material Design Icons:** [Pictoprogrammers](https://pictogrammers.com/library/mdi/)
