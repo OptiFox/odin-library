@@ -111,7 +111,6 @@ const btnConfirm = addBookDialog.querySelector("#btnConfirm");
 
 // Open dialog
 btnOpenDialog.addEventListener("click", () => {
-  // Clear previous input
   addBookDialog.showModal();
 });
 
@@ -124,6 +123,7 @@ btnConfirm.addEventListener("click", (e) => {
 
   let isFormValid = addBookForm.checkValidity();
   if (!isFormValid) {
+    // e.preventDefault() gets rid of form validity check, so we have to add this
     addBookForm.reportValidity();
   } else {
     e.preventDefault();
@@ -142,6 +142,7 @@ btnConfirm.addEventListener("click", (e) => {
     // for testing
     console.log(myLibrary);
 
+    // Clear previous input after submitting
     addBookForm.reset();
     addBookDialog.close();
   }
