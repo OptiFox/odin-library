@@ -24,3 +24,4 @@ This repository contains my solution for the library project by [The Odin Projec
 - **Material Design Icons:** [Pictoprogrammers](https://pictogrammers.com/library/mdi/)
 - **Dialogs/Modals:** [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
 - **Check required fields with e.preventDefault():** [StackOverflow](https://stackoverflow.com/questions/48897314/check-required-fields-with-preventdefault)
+- **Adding images to an HTML document with Javascript:** [StackOverflow](https://stackoverflow.com/questions/2735881/adding-images-to-an-html-document-with-javascript)

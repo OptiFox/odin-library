@@ -39,7 +39,7 @@ function createCard() {
   container.appendChild(card);
 }
 
-function createCardItems(i) {
+function createCardItems(index) {
   const cardContainer = document.querySelectorAll(".card");
 
   const paraId = document.createElement("p");
@@ -60,40 +60,74 @@ function createCardItems(i) {
   const indicator = document.createElement("span");
   indicator.classList.add("indicator");
 
-  // loop through each card to add id
+  const btnDelete = document.createElement("button");
+  btnDelete.classList.add("delete");
+
+  const iconDelete = document.createElement("img");
+  iconDelete.src = "icons/delete.svg";
+
+  // Loop through each card to add elements
   cardContainer.forEach((card) => {
     card.appendChild(paraId);
-    paraId.textContent = myLibrary[i].id;
+    paraId.textContent = myLibrary[index].id;
 
     card.appendChild(headerTitle);
-    headerTitle.textContent = myLibrary[i].title;
+    headerTitle.textContent = myLibrary[index].title;
 
     card.appendChild(headerAuthor);
-    headerAuthor.textContent = myLibrary[i].author;
+    headerAuthor.textContent = myLibrary[index].author;
 
     card.appendChild(paraPages);
-    paraPages.textContent = `Pages: ${myLibrary[i].pages}`;
+    paraPages.textContent = `Pages: ${myLibrary[index].pages}`;
 
     card.appendChild(paraRead);
     paraRead.textContent = "Read Status:";
     paraRead.appendChild(indicator);
+
+    card.appendChild(btnDelete);
+    btnDelete.textContent = "Delete";
+    btnDelete.appendChild(iconDelete);
+
+    btnDelete.dataset.indexNumber = myLibrary[index].id;
   });
 
   // Change read indicator
-  if (myLibrary[i].read) {
+  if (myLibrary[index].read) {
     indicator.classList.add("read");
   } else {
     indicator.classList.remove("read");
   }
 }
 
-// testing for loops to display obj from myLibrary
-for (let i = 0; i < myLibrary.length; i++) {
-  // Create card inside container
-  createCard();
+function recreateContainer() {
+  const deleteContainer = document.querySelector(".container");
+  deleteContainer.remove();
 
-  // Create elements within cards
-  createCardItems(i);
+  const createContainer = document.createElement("div");
+  createContainer.classList.add("container");
+
+  document.body.appendChild(createContainer);
+
+  generateCards();
+}
+
+// testing for loops to display obj from myLibrary
+function generateCards() {
+  for (let i = 0; i < myLibrary.length; i++) {
+    // Create card inside container
+    createCard();
+
+    // Create elements within cards
+    createCardItems(i);
+  }
+
+  regenerateEventHandlers();
+}
+
+generateCards();
+
+function regenerateEventHandlers() {
+  deleteBook();
 }
 
 // Add new book dialog
@@ -102,7 +136,7 @@ const addBookDialog = document.querySelector("#addBookDialog");
 
 const addBookForm = document.querySelector("#addBookForm");
 
-// form inputs
+// Form inputs
 const inputTitle = document.querySelector("#title");
 const inputAuthor = document.querySelector("#author");
 const inputPages = document.querySelector("#pages");
@@ -116,11 +150,6 @@ btnOpenDialog.addEventListener("click", () => {
 
 // Confirm input
 btnConfirm.addEventListener("click", (e) => {
-  // console.log(inputTitle.value);
-  // console.log(inputAuthor.value);
-  // console.log(inputPages.value);
-  // console.log(inputRead.value);
-
   let isFormValid = addBookForm.checkValidity();
   if (!isFormValid) {
     // e.preventDefault() gets rid of form validity check, so we have to add this
@@ -135,12 +164,10 @@ btnConfirm.addEventListener("click", (e) => {
       readStatus(),
     );
 
-    // call the createCard() and createCardItems(arrayIndex) functions
-    createCard();
-    createCardItems(myLibrary.indexOf(myLibrary.at(-1)));
+    recreateContainer();
 
     // for testing
-    console.log(myLibrary);
+    // console.log(myLibrary);
 
     // Clear previous input after submitting
     addBookForm.reset();
@@ -150,11 +177,30 @@ btnConfirm.addEventListener("click", (e) => {
 
 function readStatus() {
   const inputRead = document.querySelector('input[name="read"]:checked');
-  console.log(inputRead.value);
+  // console.log(inputRead.value);
 
   if (inputRead.value === "yes") {
     return true;
   } else {
     return false;
   }
+}
+
+function deleteBook() {
+  const deleteCard = document.querySelectorAll(".delete");
+
+  deleteCard.forEach((del) => {
+    del.addEventListener("click", () => {
+      // console.log(del.dataset.indexNumber);
+      // console.log(typeof myLibrary[0].id)
+
+      for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].id === del.dataset.indexNumber) {
+          console.log(`deleted ${myLibrary[i].title}`);
+          myLibrary.splice(i, 1);
+          return recreateContainer();
+        }
+      }
+    });
+  });
 }

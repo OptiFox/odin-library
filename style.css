@@ -12,16 +12,19 @@ body {
 }
 
 .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  width: 80vw;
+  display: flex;
+  width: 100vw;
   gap: 20px;
   justify-content: center;
   padding: 10px;
+  flex-wrap: wrap;
 }
 
 .card {
   height: 200px;
+  min-width: max-content;
+  max-width: 500px;
+  flex: 1 0 30%;
   background-color: rgb(235, 235, 235);
   box-shadow: 2px 2px 6px black;
   border-radius: 12px;
@@ -137,4 +140,11 @@ fieldset > legend {
   padding: 2px 4px;
   border: 1px solid black;
   border-radius: 4px;
+}
+
+.delete {
+  margin-top: 4px;
+  flex-direction: row-reverse;
+  background-color: rgb(255, 29, 29);
+  color: white;
 }
