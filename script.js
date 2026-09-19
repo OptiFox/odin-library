@@ -15,22 +15,15 @@ function Book(id, title, author, pages, read) {
   };
 }
 
-// const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, "not read yet");
-// console.log(theHobbit.info());
+Book.prototype.toggleRead = function () {
+  if (this.read) this.read = false;
+  else this.read = true;
+};
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(crypto.randomUUID(), title, author, pages, read);
   myLibrary.push(book);
 }
-
-// for testing purposes
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
-addBookToLibrary("Title Test", "Test Author", 80, true);
-addBookToLibrary("Title Test 2", "Test Author 2", 90, true);
-addBookToLibrary("Title Test 3", "Test Author 3", 100, false);
-addBookToLibrary("Title Test 4", "Test Author 4", 110, true);
-addBookToLibrary("Title Test 5", "Test Author 5", 120, false);
-console.log(myLibrary);
 
 function createCard() {
   const container = document.querySelector(".container");
@@ -58,13 +51,22 @@ function createCardItems(index) {
   paraRead.classList.add("read");
 
   const indicator = document.createElement("span");
-  indicator.classList.add("indicator");
+  indicator.classList.add("indicator-" + index);
+
+  const btnContainer = document.createElement("div");
+  btnContainer.classList.add("buttons");
 
   const btnDelete = document.createElement("button");
   btnDelete.classList.add("delete");
 
   const iconDelete = document.createElement("img");
   iconDelete.src = "icons/delete.svg";
+
+  const btnToggle = document.createElement("button");
+  btnToggle.classList.add("toggle");
+
+  const iconToggle = document.createElement("img");
+  iconToggle.src = "icons/swap-horizontal.svg";
 
   // Loop through each card to add elements
   cardContainer.forEach((card) => {
@@ -84,18 +86,29 @@ function createCardItems(index) {
     paraRead.textContent = "Read Status:";
     paraRead.appendChild(indicator);
 
-    card.appendChild(btnDelete);
+    card.appendChild(btnContainer);
+    btnContainer.appendChild(btnDelete);
+    btnContainer.appendChild(btnToggle);
+
     btnDelete.textContent = "Delete";
     btnDelete.appendChild(iconDelete);
 
+    btnToggle.textContent = "Toggle";
+    btnToggle.appendChild(iconToggle);
+
     btnDelete.dataset.indexNumber = myLibrary[index].id;
+    btnToggle.dataset.indexNumber = myLibrary[index].id;
   });
+}
+
+function readIndicator(index) {
+  const indicator = document.querySelector(`.indicator-${index}`);
 
   // Change read indicator
   if (myLibrary[index].read) {
-    indicator.classList.add("read");
+    indicator.classList.add("done");
   } else {
-    indicator.classList.remove("read");
+    indicator.classList.remove("done");
   }
 }
 
@@ -111,7 +124,6 @@ function recreateContainer() {
   generateCards();
 }
 
-// testing for loops to display obj from myLibrary
 function generateCards() {
   for (let i = 0; i < myLibrary.length; i++) {
     // Create card inside container
@@ -119,15 +131,16 @@ function generateCards() {
 
     // Create elements within cards
     createCardItems(i);
+
+    readIndicator(i);
   }
 
   regenerateEventHandlers();
 }
 
-generateCards();
-
 function regenerateEventHandlers() {
   deleteBook();
+  toggleIndicator();
 }
 
 // Add new book dialog
@@ -166,9 +179,6 @@ btnConfirm.addEventListener("click", (e) => {
 
     recreateContainer();
 
-    // for testing
-    // console.log(myLibrary);
-
     // Clear previous input after submitting
     addBookForm.reset();
     addBookDialog.close();
@@ -177,7 +187,6 @@ btnConfirm.addEventListener("click", (e) => {
 
 function readStatus() {
   const inputRead = document.querySelector('input[name="read"]:checked');
-  // console.log(inputRead.value);
 
   if (inputRead.value === "yes") {
     return true;
@@ -187,18 +196,29 @@ function readStatus() {
 }
 
 function deleteBook() {
-  const deleteCard = document.querySelectorAll(".delete");
+  const btnDelete = document.querySelectorAll(".delete");
 
-  deleteCard.forEach((del) => {
+  btnDelete.forEach((del) => {
     del.addEventListener("click", () => {
-      // console.log(del.dataset.indexNumber);
-      // console.log(typeof myLibrary[0].id)
-
       for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].id === del.dataset.indexNumber) {
-          console.log(`deleted ${myLibrary[i].title}`);
           myLibrary.splice(i, 1);
           return recreateContainer();
+        }
+      }
+    });
+  });
+}
+
+function toggleIndicator() {
+  const btnToggle = document.querySelectorAll(".toggle");
+
+  btnToggle.forEach((tog) => {
+    tog.addEventListener("click", () => {
+      for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].id === tog.dataset.indexNumber) {
+          myLibrary[i].toggleRead();
+          return readIndicator(i);
         }
       }
     });

@@ -6,13 +6,17 @@ This repository contains my solution for the library project by [The Odin Projec
 
 ## Features
 
-<!-- - All books are stored in an array. -->
+- **myLibrary array:** All books are stored in an array.
+- **Book Card:** Each book stored in the array is displayed in cards.
+- **New Book button:** Users can easily add new book object into the array.
+- **Delete button:** Users can delete by pressing on the button in the card to delete that specific book object.
+- **Toggle button:** Users can toggle whether they have read the book or not with green and red indicator.
 
 ## Technologies Used
 
-- **HTML5**
-- **CSS3**
-- **JavaScript**
+- **HTML5:** For the basic elements including, but not limited to, buttons and divs.
+- **CSS3:** For the styling of the cards, buttons, and dialog.
+- **JavaScript:** For all the functional and interactive parts of this page.
 
 ## Credits
 
