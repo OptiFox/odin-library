@@ -113,29 +113,38 @@ const btnConfirm = addBookDialog.querySelector("#btnConfirm");
 btnOpenDialog.addEventListener("click", () => {
   // Clear previous input
   addBookDialog.showModal();
-  addBookForm.reset();
 });
 
 // Confirm input
-btnConfirm.addEventListener("click", () => {
+btnConfirm.addEventListener("click", (e) => {
   // console.log(inputTitle.value);
   // console.log(inputAuthor.value);
   // console.log(inputPages.value);
   // console.log(inputRead.value);
 
-  addBookToLibrary(
-    String(inputTitle.value),
-    String(inputAuthor.value),
-    Number(inputPages.value),
-    readStatus(),
-  );
+  let isFormValid = addBookForm.checkValidity();
+  if (!isFormValid) {
+    addBookForm.reportValidity();
+  } else {
+    e.preventDefault();
 
-  // call the createCard() and createCardItems(arrayIndex) functions
-  createCard();
-  createCardItems(myLibrary.indexOf(myLibrary.at(-1)));
+    addBookToLibrary(
+      String(inputTitle.value),
+      String(inputAuthor.value),
+      Number(inputPages.value),
+      readStatus(),
+    );
 
-  // for testing
-  console.log(myLibrary);
+    // call the createCard() and createCardItems(arrayIndex) functions
+    createCard();
+    createCardItems(myLibrary.indexOf(myLibrary.at(-1)));
+
+    // for testing
+    console.log(myLibrary);
+
+    addBookForm.reset();
+    addBookDialog.close();
+  }
 });
 
 function readStatus() {

@@ -22,3 +22,5 @@ This repository contains my solution for the library project by [The Odin Projec
 - **Getting value of checked radio button:** [StackOverflow](https://stackoverflow.com/questions/45121155/getting-the-value-of-a-checked-radio-button-using-javascript)
 - **Element positioning with dialog/modal:** [StackOverflow](https://stackoverflow.com/questions/78710924/element-positioning-with-dialog-modal-css)
 - **Material Design Icons:** [Pictoprogrammers](https://pictogrammers.com/library/mdi/)
+- **Dialogs/Modals:** [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- **Check required fields with e.preventDefault():** [StackOverflow](https://stackoverflow.com/questions/48897314/check-required-fields-with-preventdefault)
