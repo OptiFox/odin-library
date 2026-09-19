@@ -20,18 +20,18 @@
 
       <p>
         <label for="author">Author:</label>
-        <input type="text" name="author" id="author">
+        <input type="text" name="author" id="author" required>
       </p>
 
       <p>
         <label for="pages">Pages:</label>
-        <input type="number" name="pages" id="pages" min="1">
+        <input type="number" name="pages" id="pages" min="1" required>
       </p>
 
       <fieldset>
         <legend>Have you read this book?</legend>
         <label for="yes">
-          <input type="radio" name="read" id="yes" value="yes">
+          <input type="radio" name="read" id="yes" value="yes" required>
           Yes
         </label>
         <label for="no">
@@ -43,6 +43,7 @@
       <div>
         <button type="submit" formnovalidate>Cancel</button>
         <button type="submit" id="btnConfirm">Confirm</button>
+        <!-- <button type="button" onclick="readStatus()">click</button> used for testing -->
       </div>
     </form>
   </dialog>

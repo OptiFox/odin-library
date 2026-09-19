@@ -10,7 +10,7 @@ function Book(id, title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function() {
+  this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
   };
 }
@@ -23,6 +23,7 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(book);
 }
 
+// for testing purposes
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
 addBookToLibrary("Title Test", "Test Author", 80, true);
 addBookToLibrary("Title Test 2", "Test Author 2", 90, true);
@@ -39,25 +40,25 @@ function createCard() {
 }
 
 function createCardItems(i) {
-  const cardContainer = document.querySelectorAll('.card');
+  const cardContainer = document.querySelectorAll(".card");
 
-  const paraId = document.createElement('p');
-  paraId.classList.add('id');
+  const paraId = document.createElement("p");
+  paraId.classList.add("id");
 
-  const headerTitle = document.createElement('h1');
-  headerTitle.classList.add('title');
+  const headerTitle = document.createElement("h1");
+  headerTitle.classList.add("title");
 
-  const headerAuthor = document.createElement('h2');
-  headerAuthor.classList.add('author');
+  const headerAuthor = document.createElement("h2");
+  headerAuthor.classList.add("author");
 
-  const paraPages = document.createElement('p');
-  paraPages.classList.add('pages');
+  const paraPages = document.createElement("p");
+  paraPages.classList.add("pages");
 
-  const paraRead = document.createElement('p');
-  paraRead.classList.add('read');
+  const paraRead = document.createElement("p");
+  paraRead.classList.add("read");
 
-  const indicator = document.createElement('span');
-  indicator.classList.add('indicator');
+  const indicator = document.createElement("span");
+  indicator.classList.add("indicator");
 
   // loop through each card to add id
   cardContainer.forEach((card) => {
@@ -89,52 +90,61 @@ function createCardItems(i) {
 // testing for loops to display obj from myLibrary
 for (let i = 0; i < myLibrary.length; i++) {
   // Create card inside container
-  createCard()
-  
+  createCard();
+
   // Create elements within cards
   createCardItems(i);
 }
 
 // Add new book dialog
-const btnOpenDialog = document.querySelector('#showDialog');
-const addBookDialog = document.querySelector('#addBookDialog');
+const btnOpenDialog = document.querySelector("#showDialog");
+const addBookDialog = document.querySelector("#addBookDialog");
 
-const addBookForm = document.querySelector('#addBookForm');
+const addBookForm = document.querySelector("#addBookForm");
 
-const inputTitle = document.querySelector('#title');
-const inputAuthor = document.querySelector('#author');
-const inputPages = document.querySelector('#pages');
+// form inputs
+const inputTitle = document.querySelector("#title");
+const inputAuthor = document.querySelector("#author");
+const inputPages = document.querySelector("#pages");
 
-// need to figure out how to get boolean output
-const inputRead = document.querySelector('input[name="read"]:checked');
-
-const btnConfirm = addBookDialog.querySelector('#btnConfirm');
+const btnConfirm = addBookDialog.querySelector("#btnConfirm");
 
 // Open dialog
-btnOpenDialog.addEventListener('click', () => {
+btnOpenDialog.addEventListener("click", () => {
   // Clear previous input
   addBookDialog.showModal();
   addBookForm.reset();
 });
 
 // Confirm input
-btnConfirm.addEventListener('click', () => {
-  console.log(inputTitle.value);
-  console.log(inputAuthor.value);
-  console.log(inputPages.value);
+btnConfirm.addEventListener("click", () => {
+  // console.log(inputTitle.value);
+  // console.log(inputAuthor.value);
+  // console.log(inputPages.value);
+  // console.log(inputRead.value);
+
+  addBookToLibrary(
+    String(inputTitle.value),
+    String(inputAuthor.value),
+    Number(inputPages.value),
+    readStatus(),
+  );
+
+  // call the createCard() and createCardItems(arrayIndex) functions
+  createCard();
+  createCardItems(myLibrary.indexOf(myLibrary.at(-1)));
+
+  // for testing
+  console.log(myLibrary);
+});
+
+function readStatus() {
+  const inputRead = document.querySelector('input[name="read"]:checked');
   console.log(inputRead.value);
 
-  let readStatus = true;
-
-  if (inputRead.value === 'yes') {
-    readStatus = true;
+  if (inputRead.value === "yes") {
+    return true;
   } else {
-    readStatus = false;
+    return false;
   }
-
-  console.log(readStatus);
-
-  // doesn't work rn
-  // one work around I found is to call the createCard() and createCardItems(arrayIndex) functions after this
-  addBookToLibrary(String(inputTitle.value), String(inputAuthor.value), Number(inputPages.value), readStatus);
-})
+}
